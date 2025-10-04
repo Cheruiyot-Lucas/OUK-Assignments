@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 80px;
+    }
+    h1 {
+      color: #2f3640;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0652dd;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #2f3640;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 AI Calculator</h1>
+  <div class="container">
+    <input type="text" id="inputText" placeholder="Type something like 'add 12 and 30'">
+    <button onclick="sendRequest()">Calculate</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function sendRequest() {
+      const inputText = document.getElementById('inputText').value;
+      const response = await fetch('/calculate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ text: inputText })
+      });
+      const data = await response.json();
+      document.getElementById('result').innerText = data.result;
+    }
+  </script>
+</body>
+</html>
